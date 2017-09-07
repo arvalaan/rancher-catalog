@@ -1,0 +1,21 @@
+version: '2'
+volumes:
+  conan-exiles:
+    external: true
+    driver: rancher-nfs
+services:
+  Server:
+    image: alinmear/docker-conanexiles
+    environment:
+      CONANEXILES_SERVER_TYPE: pvp
+      CONANEXILES_ServerSettings_ServerSettings_AdminPassword: '12345'
+    stdin_open: true
+    volumes:
+    - conan-exiles:/conanexiles
+    tty: true
+    ports:
+    - 7777:7777/udp
+    - 7778:7778/udp
+    - 27015:27015/udp
+    labels:
+      io.rancher.container.pull_image: always
